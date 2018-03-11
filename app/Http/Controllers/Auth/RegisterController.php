@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserEmailAddress;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -27,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,32 +43,29 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param  RegisterRequest  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+    protected function register(RegisterRequest $request) {
+        
+        DB::transaction(function () use ($request) {
+            
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'password' => bcrypt($request->password),
+            ]);
+            
+            UserEmailAddress::create([
+                'user_id' => $user->id,
+                'email_address' => $request->email_address,                
+                'is_default' => 1,
+            ]);            
+            
+        });
+        
+        return redirect($this->redirectPath());
     }
 }
