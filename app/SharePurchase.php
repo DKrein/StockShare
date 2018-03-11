@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
-{
-    use Notifiable;
+class SharePurchase extends Model {
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -15,15 +14,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'company_name', 'share_instrument_name', 'quantity', 'price', 'total_investment', 'certificate_number', 'user_id',
     ];
-
+    
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $dates = ['deleted_at'];
+    
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'share_purchase';
 }
