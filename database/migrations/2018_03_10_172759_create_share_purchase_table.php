@@ -17,8 +17,10 @@ class CreateSharePurchaseTable extends Migration {
             $table->string('company_name');
             $table->string('share_instrument_name');
             $table->integer('quantity');
-            $table->double('price',12,10);
-            $table->double('total_investment',12,10);
+            $table->decimal('price',19,10);
+            //max total_invest being 999.999.999,9999999999
+            $table->decimal('total_investment',22,10);
+            //max total_invest being 999.999.999.999,9999999999
             $table->string('certificate_number');
             
             $table->integer('user_id')->unsigned();

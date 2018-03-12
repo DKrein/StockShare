@@ -1,1 +1,1 @@
-# StockShare
+# Stock Share Purchase System

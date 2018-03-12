@@ -68,6 +68,6 @@ class RegisterController extends Controller
             }         
         });
         
-        return redirect()->route('/')->withFlashSuccess('User registered with success.');        
+        return redirect()->route('index')->withFlashSuccess('User registered with success.');        
     }
 }
