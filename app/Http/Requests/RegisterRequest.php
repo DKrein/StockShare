@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use Illuminate\Validation\Rule;
+//use Illuminate\Validation\Rule;
 
 /**
  * Class RegisterRequest.
@@ -26,12 +26,17 @@ class RegisterRequest extends Request
      * @return array
      */
     public function rules() {
-        return [
+        $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email_address' => 'required|string|email|max:255|unique:user_email_addresses',
             'password' => 'required|string|min:6',
         ];
+        
+        foreach($this->request->get('email_address') as $key => $val) {
+            $rules['email_address.'.$key] = 'required|string|email|max:255|unique:user_email_addresses,email_address';
+        }
+        
+        return $rules;
     }
    
 }

@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="price" class="col-sm-2 control-label">Price</label>
                 <div class="col-sm-10">
-                    {{ Form::number('price', null, ['class' => 'form-control calculate', 'placeholder' => 'Price', 'required' => 'required', 'min'=>'0.01', 'step'=>'0.01'])}}
+                    {{ Form::number('price', null, ['class' => 'form-control calculate', 'placeholder' => 'Price', 'required' => 'required', 'min'=>'0.0000000001', 'step'=>'0.0000000001'])}}
                 </div>
             </div>
             
@@ -74,7 +74,7 @@
             $price = $( "input[name*='price']" ).val();
             $quantity = $( "input[name*='quantity']" ).val();
             $total_investment = $price*$quantity;
-            $( "input[name*='total_investment']" ).val($total_investment.toFixed(5));
+            $( "input[name*='total_investment']" ).val($total_investment.toFixed(10));
         });
     </script>
 @endsection

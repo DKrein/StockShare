@@ -31,6 +31,11 @@
                   </tr>
                 </thead>
                 <tbody>
+                    @if(count($purchases) == 0)
+                     <tr>
+                         <td colspan="8">No purchases registered in the system.</td>
+                     </tr>
+                    @endif
                     @foreach($purchases as $purchase)
                         <tr>
                             <td>{{$purchase->company_name}}</td>

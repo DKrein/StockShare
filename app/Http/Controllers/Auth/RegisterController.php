@@ -49,6 +49,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     protected function register(RegisterRequest $request) {
+
         
         DB::transaction(function () use ($request) {
             
@@ -58,14 +59,15 @@ class RegisterController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             
-            UserEmailAddress::create([
-                'user_id' => $user->id,
-                'email_address' => $request->email_address,                
-                'is_default' => 1,
-            ]);            
-            
+            foreach($request->email_address as $key => $email_address) {
+                UserEmailAddress::create([
+                    'user_id' => $user->id,
+                    'email_address' => $email_address,                
+                    'is_default' => ($key==$request->is_default ? 1 : 0),
+                ]);     
+            }         
         });
         
-        return redirect($this->redirectPath());
+        return redirect()->route('/')->withFlashSuccess('User registered with success.');        
     }
 }

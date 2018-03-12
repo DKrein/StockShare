@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h1>Purchase Stock System</h1>
+                <h1><a href="{{ url('/') }}">Purchase Stock System</a></h1>
             </div>   
              <div class="col-md-4" style="padding-top: 20px;">
                 <ul class="nav nav-pills navbar-right">
