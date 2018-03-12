@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="col-md-4" style="float: none; margin: 30px auto; text-align:center;">
                     <h1>Dashboard</h1>    
+                    <h3>Hello {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</h3>
                 </div>                
             </div>
             

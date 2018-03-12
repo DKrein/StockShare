@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-md-4" style="float: none; margin: 30px auto; text-align:center;">
-                <h1>Purchase Share</h1>    
+                <h1>Create - Purchase Share</h1>    
             </div>                
         </div>
         
